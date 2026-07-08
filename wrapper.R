@@ -8,12 +8,21 @@ library(rBayesianOptimization)
 library(dplyr)
 library(tidyr)
 
-## Perform baseline
+## Run baseline
 source("params_baseline.R")
 source("model.R")
-# source()
+source("calculate_results.R")
+write.csv(output, "baseline_results.csv")
 
 ## Run Bayesian optimization
 outbreak_data <- read.csv("outbreak_data.csv")
 set.seed(11)
 source("bayesian_optimization.R")
+
+## Run model with optimized parameters
+parameters["kappa_1"] <- best_params["kappa_1"] 
+parameters["kappa_2"] <- best_params["kappa_2"]
+parameters["kappa_3"] <- best_params["kappa_3"]
+parameters["I_Ds0"] <- best_params["I_Ds0"]
+source("model.R")
+source("calculate_results.R")

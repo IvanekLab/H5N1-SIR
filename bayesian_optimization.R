@@ -242,11 +242,10 @@ opt_results <- BayesianOptimization(
 
 # Export results
 best_params <- opt_results$Best_Par
-print(best_params)
 
 write.csv(best_params, "best_params.csv", row.names = TRUE)
 
-# write.csv(opt_results$History,"optimization_history.csv", row.names =FALSE)
+write.csv(opt_results$History,"optimization_history.csv", row.names =FALSE)
 
 predictions<-as.data.frame(t(opt_results$Pred))
 colnames(predictions) <- c("M_peak_d", "M_peak_n", "M_total_inf_p", "M_clin_p", "M_subclin_p", "M_total_inf_lac_p", "M_total_inf_dry_p")
