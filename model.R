@@ -1,13 +1,45 @@
 # Main model
 
-## Package dependencies
-library(deSolve)
-library(ggplot2)
-library(reshape2)
-library(rBayesianOptimization)
-library(dplyr)
-library(tidyr)
+## Initial state vector
+initial_state_values <- c(
+  S_L = (lac * N), 
+  I_Lc = 0,
+  I_Ls = 0,
+  H_L = 0,
+  R_L = 0,
+  R_Lc = 0,
+  R_Ls = 0,
+  
+  S_D = ((1 - lac) * N) - I_Ds0,
+  I_Dc = 0,
+  I_Ds = I_Ds0,
+  H_D = 0,
+  R_D = 0,
+  R_Dc = 0,
+  R_Ds = 0,
+  
+  S_W = (1 - v) * W,
+  I_Wc = 0,
+  I_Ws = 0,
+  R_W = v * W,
+  
+  Dd = 0,
+  Q = 0,
+  
+  Lic = 0,
+  Lis = 0, 
+  Dic = 0,
+  Dis = I_Ds0,
+  
+  Wic = 0,
+  Wr = 0,
+  
+  Fi_L=0,
+  Fi_D=0,
+  Fi_W=0
+)
 
+# Model code
 HPAI_dyn <- function(time, state, parameters) {
   with(as.list(c(state, parameters)), {
     lambda_L <- kappa_1 * beta_c * I_Lc + 
