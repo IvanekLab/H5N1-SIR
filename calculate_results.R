@@ -81,3 +81,14 @@ M_total_inf_dry_n<-
 M_total_inf_dry_n
 M_total_inf_dry_p<-M_total_inf_dry_n / (M_total_inf_dry_n + tail(output$S_D, 1) )
 M_total_inf_dry_p
+
+# Results for table
+vector <- c(
+  p1 = M_peak_d,
+  p2 = M_peak_n,
+  p3b = M_total_inf_p,
+  p5b = M_clin_p,
+  p6b = M_subclin_p,
+  p7 = M_total_inf_lac_p,
+  p8 = M_total_inf_dry_p
+)

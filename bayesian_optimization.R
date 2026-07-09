@@ -160,7 +160,6 @@ objective_function <- function(kappa_1, kappa_2, kappa_3, I_Ds0) {
   #target=0.405
   V_total_inf_dry_p <-0.405
   
-  
   #TARGET T4
   output$observed_cases <- outbreak_data$cases[match(output$time, outbreak_data$day)]
   output$observed_cases[is.na(output$observed_cases)] <- 0 ## replace NAs with zero to prevent error in plotting
@@ -227,7 +226,6 @@ p.sero_neg <- 1-p.sero_pos # prevalence of seronegatives at t=118 (also proporti
 p.sero_pos_clin <- n.sero_pos_clin/n.sero_pos #0.149=85/570 proportion with history of clinical infection among seropositive at t=118
 p.sero_pos_subclin <- 1-p.sero_pos_clin #0.851=485/570 proportion with history of subclinical infection among seropositive at t=118
 
-
 # Run
 opt_results <- BayesianOptimization(
   FUN = objective_function,
@@ -241,6 +239,26 @@ opt_results <- BayesianOptimization(
 )
 
 # Export results
+
+# Target vector
+T_peak_d <- 23
+T_peak_n <- 121
+T_total_inf_p  <- p.sero_pos #0.89
+T_clin_p <- p.sero_pos_clin * p.sero_pos #0.133=0.15*0.89
+T_subclin_p  <- p.sero_pos_subclin * p.sero_pos # 0.761=485/570
+V_total_inf_lac_p <- 0.929
+V_total_inf_dry_p <-0.405
+
+target_vector <- c(
+  p1 = T_peak_d,
+  p2 = T_peak_n,
+  p3b = T_total_inf_p,
+  p5b = T_clin_p,
+  p6b = T_subclin_p,
+  p7 = V_total_inf_lac_p,
+  p8 = V_total_inf_dry_p
+)
+
 best_params <- opt_results$Best_Par
 
 write.csv(best_params, "best_params.csv", row.names = TRUE)

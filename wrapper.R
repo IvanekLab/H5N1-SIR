@@ -13,6 +13,7 @@ source("params_baseline.R")
 source("model.R")
 source("calculate_results.R")
 write.csv(output, "baseline_results.csv")
+baseline_vector <- vector
 
 ## Run Bayesian optimization
 outbreak_data <- read.csv("outbreak_data.csv")
@@ -26,3 +27,7 @@ parameters["kappa_3"] <- best_params["kappa_3"]
 parameters["I_Ds0"] <- best_params["I_Ds0"]
 source("model.R")
 source("calculate_results.R")
+write.csv(output, "optimized_results.csv")
+optimized_vector <- vector
+
+bayesian_table <- data.frame(baseline_vector,target_vector,optimized_vector)
