@@ -31,3 +31,4 @@ write.csv(output, "optimized_results.csv")
 optimized_vector <- vector
 
 bayesian_table <- data.frame(baseline_vector,target_vector,optimized_vector)
+write.csv(bayesian_table, "bayesian_table.csv")
