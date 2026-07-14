@@ -59,7 +59,6 @@ alpha_c <- 1 / Dc
 alpha_s <- 1/ Ds
 alpha_H <- 1 / 5.1
 ro <- 311/777
-sigma <- 1/2 #0=animals are not isolated; 1/2=animals are isolated 1 days after clinical presentation
 delta_1 <-0.068 /Dc
 delta_2 <- 0.316 /Dc
 Dr <- 5*365
@@ -91,7 +90,6 @@ parameters <- c(
   alpha_s = alpha_s,
   alpha_H = alpha_H,
   ro = ro,
-  sigma = sigma,
   delta_1 = delta_1,
   delta_2 = delta_2,
   gamma = gamma,
