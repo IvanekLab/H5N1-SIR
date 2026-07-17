@@ -3,7 +3,7 @@
 # Model code
 HPAI_dyn <- function(time, state, parameters) {
   with(as.list(c(state, parameters)), {
-    lambda_L <- kappa_1 * beta_c * I_Lc + 
+    lambda_L <- kappa_1 * beta_c * I_Lc +
       kappa_1 * beta_s * I_Ls +  
       kappa_3 * kappa_2 * beta_c * I_Dc +  
       kappa_3 * kappa_2 * beta_s * I_Ds +  
@@ -25,7 +25,7 @@ HPAI_dyn <- function(time, state, parameters) {
       kappa_4 * kappa_2 * beta_c * H_D
     
     dS_L <- B + gamma * R_L + f * S_D - lambda_L * S_L - (d + mu1 + mu2) * S_L
-    dI_Lc <- f * I_Dc + p * (1-ro) * lambda_L * S_L - (d + mu1 + mu2 + alpha_c + delta_1 + delta_2) * I_Lc
+    dI_Lc <- f * I_Dc + p * (1-ro) * lambda_L * S_L + alpha_H * H_L - (d + mu1 + mu2 + alpha_c + delta_1 + delta_2) * I_Lc
     dI_Ls <- f * I_Ds + (1 - p) * lambda_L * S_L - (d + mu1 + mu2 + alpha_s) * I_Ls
     dH_L <- f * H_D + p * ro * lambda_L * S_L - (d + mu1 + mu2 + alpha_H + delta_1 + delta_2) * H_L
     dR_L <- f * R_D + alpha_s * I_Ls + alpha_c * I_Lc - (d + mu1 + mu2 + gamma) * R_L
@@ -74,6 +74,7 @@ HPAI_dyn <- function(time, state, parameters) {
   })
 }
 
+# Generate outputs
 output <- tryCatch({
   as.data.frame(lsoda(
     y = initial_state_values,
