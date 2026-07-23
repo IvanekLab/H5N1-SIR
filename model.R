@@ -1,4 +1,4 @@
-# Main model
+# Main model - Based on Slide #2 in Slide Deck (v7a)
 
 # Model code
 HPAI_dyn <- function(time, state, parameters) {
